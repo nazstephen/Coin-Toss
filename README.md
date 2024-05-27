@@ -116,12 +116,12 @@ if start_button:
 st.write(st.session_state['df_experiment_results'])
 ```
 
-###Deployment
+### Deployment
 To deploy the application to Render or any other hosting service, follow these steps:
 
-Commit your changes to a GitHub repository.
-Connect your repository to Render (or your chosen service) and follow their deployment instructions.
-Conclusion
-This application provides an interactive way to explore the statistical behavior of coin tosses. Feel free to modify and expand the application to suit your needs. If you encounter any issues or have suggestions for improvements, please open an issue or submit a pull request.
+1) Commit your changes to a GitHub repository.
+2) Connect your repository to Render (or your chosen service) and follow their deployment instructions.
 
-Happy coding!
+## Conclusion
+
+This application provides an interactive way to explore the statistical behavior of coin tosses. Feel free to modify and expand the application to suit your needs. If you encounter any issues or have suggestions for improvements, please open an issue or submit a pull request.

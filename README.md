@@ -52,3 +52,76 @@ import streamlit as st
 import scipy.stats
 import pandas as pd
 import time
+```
+
+### Initialize Stateful Variables
+
+These variables persist across reruns of the script.
+
+```python
+if 'experiment_no' not in st.session_state:
+    st.session_state['experiment_no'] = 0
+
+if 'df_experiment_results' not in st.session_state:
+    st.session_state['df_experiment_results'] = pd.DataFrame(columns=['no', 'iterations', 'mean'])
+```
+
+### Header and Interface Elements
+
+Set up the header, slider, and button for user interaction.
+
+```python
+st.header('Tossing a Coin')
+
+number_of_trials = st.slider('Number of trials?', 1, 1000, 10)
+start_button = st.button('Run')
+```
+
+### Toss Coin Function
+Simulate coin tosses, calculate the mean, and update the chart.
+
+```python
+def toss_coin(n):
+    trial_outcomes = scipy.stats.bernoulli.rvs(p=0.5, size=n)
+    mean = None
+    outcome_no = 0
+    outcome_1_count = 0
+
+    for r in trial_outcomes:
+        outcome_no += 1
+        if r == 1:
+            outcome_1_count += 1
+        mean = outcome_1_count / outcome_no
+        chart.add_rows([mean])
+        time.sleep(0.05)
+
+    return mean
+```
+
+### Run Simulation and Update Results
+Trigger the simulation, update the session state, and display the results table.
+
+```python
+if start_button:
+    st.write(f'Running the experiment of {number_of_trials} trials.')
+    st.session_state['experiment_no'] += 1
+    mean = toss_coin(number_of_trials)
+    st.session_state['df_experiment_results'] = pd.concat([
+        st.session_state['df_experiment_results'],
+        pd.DataFrame(data=[[st.session_state['experiment_no'], number_of_trials, mean]],
+                     columns=['no', 'iterations', 'mean'])
+    ], axis=0)
+    st.session_state['df_experiment_results'] = st.session_state['df_experiment_results'].reset_index(drop=True)
+
+st.write(st.session_state['df_experiment_results'])
+```
+
+###Deployment
+To deploy the application to Render or any other hosting service, follow these steps:
+
+Commit your changes to a GitHub repository.
+Connect your repository to Render (or your chosen service) and follow their deployment instructions.
+Conclusion
+This application provides an interactive way to explore the statistical behavior of coin tosses. Feel free to modify and expand the application to suit your needs. If you encounter any issues or have suggestions for improvements, please open an issue or submit a pull request.
+
+Happy coding!

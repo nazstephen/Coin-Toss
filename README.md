@@ -41,7 +41,7 @@ This application allows users to simulate multiple coin tosses, calculate the me
     streamlit run app.py
     ```
 
-2. Open the provided URL (usually `http://localhost:8501`) in your web browser.
+2. Open the provided URL (usually `http://localhost:10000`) in your web browser.
 
 ## Code Explanation
 
